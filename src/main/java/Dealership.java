@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class Dealership {
     ArrayList<Vehicle> inventory;
-    private String name;
-    private String address;
-    private String phone;
+   final private String name;
+    final private String address;
+    final private String phone;
 
     public Dealership(String name, String address, String phone){
         new ArrayList<>();
@@ -45,10 +45,11 @@ public class Dealership {
     public void getAllVehicles(){
 
     }
-    public void addVehicle(Vehicle vehicleToBeAdded){
-
+    public void addVehicle(int vin, int year, String make, String model, String vehicleType, String color, int odometer,double price) {
+        Vehicle vehicle = new Vehicle(vin, year, make, model,vehicleType, color, odometer, price);
+        inventory.add(vehicle);
     }
     public void removeVehicle(Vehicle vehicleToBeRemoved){
-
+        inventory.remove(vehicleToBeRemoved);
     }
 }
