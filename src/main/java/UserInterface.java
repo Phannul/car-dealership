@@ -25,14 +25,14 @@ public class UserInterface {
             String input = scanner.nextLine();
             switch(input){
                 case "1" -> processGetVehicleByPriceRequest();
-                case "2" -> System.out.println("find by make and model");
-                case "3" -> System.out.println("find by year range");
-                case "4" -> System.out.println("find by color");
-                case "5" -> System.out.println("find by milage range");
-                case "6" -> System.out.println("find by type");
+                case "2" -> processGetByMakeModelRequest();
+                case "3" -> processGetByYearRequest();
+                case "4" -> processGetByColorRequest();
+                case "5" -> processGetByMileageRequest();
+                case "6" -> processGetByVehicleTypeRequest();
                 case "7" -> processGetAllVehiclesRequest();
-                case "8" -> System.out.println("Add vehicle");
-                case "9" -> System.out.println("Remove vehicle");
+                case "8" -> processAddVehiclesRequest();
+                case "9" -> removeVehicleRequest();
                 case "0" -> run = false;
                 default -> System.out.println("wrong entry or one sloppy finger!!");
             }
@@ -102,7 +102,12 @@ public class UserInterface {
         return desiredMileage;
     }
     public ArrayList<Vehicle> processGetByVehicleTypeRequest(){
-        return null;
+        System.out.println("what type ddo you want: ");
+        String type = scanner.nextLine();
+
+        ArrayList<Vehicle> desiredType = dealership.getVehicleByType(type);
+        displayVehicles(desiredType);
+        return desiredType;
     }
     public ArrayList<Vehicle> processGetAllVehiclesRequest(){
         ArrayList allVehicles = dealership.getAllVehicles();
@@ -110,10 +115,44 @@ public class UserInterface {
         return allVehicles;
     }
     public ArrayList<Vehicle> processAddVehiclesRequest(){
-        return null;
+        System.out.println("Enter VIN: ");
+        int vin = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter Year: ");
+        int year = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter Make: ");
+        String make = scanner.nextLine();
+        System.out.println("Enter Model: ");
+        String model = scanner.nextLine();
+        System.out.println("Enter vehicle type: ");
+        String vehicleType = scanner.nextLine();
+        System.out.println("Enter Color: ");
+        String color = scanner.nextLine();
+        System.out.println("Enter odometer: ");
+        int odometer = Integer.parseInt(scanner.nextLine());
+        System.out.println("Enter price");
+        double price = Double.parseDouble(scanner.nextLine());
+
+        Vehicle newVehicle = new Vehicle(vin, year, make,model, vehicleType, color, odometer, price);
+        dealership.addVehicle(newVehicle);
+
+        DealershipFileManager fileManager = new DealershipFileManager();
+        fileManager.saveDealership(dealership);
+
+        System.out.println("Vehicle Added Successfully!!");
+
+        return dealership.getAllVehicles();
+
     }
     public ArrayList<Vehicle> removeVehicleRequest(){
-        return null;
+        System.out.println("Enter the vin of vehicle to be removed: ");
+        int vin = Integer.parseInt(scanner.nextLine());
+        dealership.removeVehicle(vin);
+
+        DealershipFileManager dfm = new DealershipFileManager();
+        dfm.saveDealership(dealership);
+
+        System.out.println("Vehicle Has been removed!!");
+        return dealership.getAllVehicles();
     }
 
 }

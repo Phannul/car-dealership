@@ -95,8 +95,12 @@ public class Dealership {
         this.inventory.add(newVehicle);
     }
 
-    public void removeVehicle(Vehicle vehicleToBeRemoved) {
-        inventory.remove(vehicleToBeRemoved);
+    public void removeVehicle(int vin) {
+        for(int i = 0; i < inventory.size(); i++){
+            if (inventory.get(i).getVin() == vin){
+                inventory.remove(i);
+            }
+        }
     }
     @Override
     public String toString(){
