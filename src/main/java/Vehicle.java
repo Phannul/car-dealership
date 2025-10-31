@@ -8,6 +8,10 @@ public class Vehicle {
     private int odometer;
     private double price;
 
+    public String getModel() {
+        return model;
+    }
+
     public Vehicle(int vin, int year, String make, String model, String vehicleType, String color, int odometer, double price) {
         this.vin = vin;
         this.year = year;
@@ -45,5 +49,9 @@ public class Vehicle {
 
     public double getPrice() {
         return price;
+    }
+    @Override
+    public String toString() {
+        return String.format("%d | %d | %s | %s | %s | %s | %d miles | $%.2f", vin, year, make, model, vehicleType, color, odometer, price);
     }
 }
